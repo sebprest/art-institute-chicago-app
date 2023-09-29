@@ -48,6 +48,7 @@ function HomePage() {
         <button
           className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleNextButtonClick}
+          disabled={Number(page) >= pagination.total_pages}
         >
           Next
         </button>
