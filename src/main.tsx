@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./main.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Artwork from "./pages/ArtworkPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store.ts";
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
         index: true,
         path: "/",
         element: <HomePage />,
-      }
+      },
+      {
+        path: "/artwork/:id",
+        element: <Artwork />,
+      },
     ],
   },
 ]);
