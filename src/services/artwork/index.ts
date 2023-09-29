@@ -7,8 +7,8 @@ export const artworkApi = createApi({
     baseUrl: "https://corsproxy.io/?https://api.artic.edu/api/v1/",
   }),
   endpoints: (builder) => ({
-    getArtworks: builder.query<Artwork[], void>({
-      query: () => "artworks",
+    getArtworksByPage: builder.query<Artwork[], string | void>({
+      query: (page = "1") => `artworks?page=${page}`,
       transformResponse: (response: { data: Artwork[] }) => response.data,
     }),
     getArtworkByName: builder.query<Artwork, string>({
@@ -18,4 +18,5 @@ export const artworkApi = createApi({
   }),
 });
 
-export const { useGetArtworksQuery, useGetArtworkByNameQuery } = artworkApi;
+export const { useGetArtworksByPageQuery, useGetArtworkByNameQuery } =
+  artworkApi;
