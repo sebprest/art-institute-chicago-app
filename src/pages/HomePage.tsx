@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useGetArtworksQuery } from "../services/artwork";
-import ArtworkCard from "../components/Card";
+import ArtworkCard from "../components/ArtworkCard";
 
 function HomePage() {
   const { data, isLoading, error } = useGetArtworksQuery();
