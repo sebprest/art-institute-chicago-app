@@ -3,8 +3,7 @@ import { useGetArtworksByPageQuery } from "../services/artwork";
 import ArtworkCard from "../components/ArtworkCard";
 
 function HomePage() {
-  const { page } = useParams();
-  const currentPage = page || "1";
+  const { page = "1" } = useParams();
   const navigate = useNavigate();
   const { data, isLoading, isFetching, error } =
     useGetArtworksByPageQuery(page);
@@ -15,17 +14,19 @@ function HomePage() {
   if (error) return <div>Something went wrong</div>;
 
   function handleBackButtonClick() {
-    navigate(`/${Number(currentPage) - 1}`);
+    navigate(`/${Number(page) - 1}`);
   }
 
   function handleNextButtonClick() {
-    navigate(`/${Number(currentPage) + 1}`);
+    navigate(`/${Number(page) + 1}`);
   }
+
+  const { data: artworks, pagination } = data;
 
   return (
     <section>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {data.map((artwork) => (
+        {artworks.map((artwork) => (
           <li key={artwork.id}>
             <Link to={`/artwork/${artwork.id}`}>
               <ArtworkCard artwork={artwork} />
@@ -37,10 +38,13 @@ function HomePage() {
         <button
           className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleBackButtonClick}
-          disabled={currentPage === "1"}
+          disabled={page === "1"}
         >
           Back
         </button>
+        <span>
+          Page {page} of {pagination.total_pages}
+        </span>
         <button
           className="bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleNextButtonClick}
