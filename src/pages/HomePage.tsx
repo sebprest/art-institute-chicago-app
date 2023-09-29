@@ -13,6 +13,10 @@ function HomePage() {
 
   if (error) return <div>Something went wrong</div>;
 
+  if(Number(page) > data.pagination.total_pages) {
+    navigate(`/${data.pagination.total_pages}`)
+  }
+
   function handleBackButtonClick() {
     navigate(`/${Number(page) - 1}`);
   }
